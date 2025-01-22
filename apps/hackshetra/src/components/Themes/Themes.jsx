@@ -121,7 +121,7 @@ function Themes (props) {
 				id="theme"
 			>
 				{/* carousel  */}
-				<h3 className="text-center text-4xl mb-6 pb-5">Themes</h3>
+				<h3 className="text-center font-kode text-4xl mb-6 pb-5">Themes</h3>
 				<div className="slideC flex flex-wrap justify-center">
 					{/* {visibleData.map((item, i) => ( */}
 					{props.data.map((item, i) => (
