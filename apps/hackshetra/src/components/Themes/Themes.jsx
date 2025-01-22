@@ -4,6 +4,23 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 function Themes (props) {
 	const [activeSlide, setActiveSlide] = useState(props.activeSlide);
 
+
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	// const [visibleCount, setVisibleCount] = useState(windowWidth <= 768 ? 3 : props.data.length);
+	
+	  // Update window width on resize
+	  useEffect(() => {
+		const handleResize = () => {
+		  setWindowWidth(window.innerWidth);
+		  setVisibleCount(window.innerWidth <= 768 ? 3 : 5);
+		};
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	  }, []);
+
+
+
+
 	const next = ()=>{
 		setActiveSlide((prev)=> prev==props.data.length-1 ? 0 : prev+1)
 	}
@@ -13,7 +30,6 @@ function Themes (props) {
 	}
 
 	const time = useRef(null)
-
 	const timer = ()=>{
 		clearTimeout(time.current)
 		time.current = setTimeout(next,3500)
@@ -25,67 +41,89 @@ function Themes (props) {
 	},[activeSlide])
 
 	const getStyles = (index) => {
-		if (activeSlide === index)
-			return {
-				opacity: 1,
-				transform: "translateX(0px) translateZ(0px) rotate(0deg)",
-				zIndex: 10,
-			};
-		else if (activeSlide - 1 === index)
-			return {
-				opacity: 1,
-				transform: "translateX(-240px) translateZ(-400px) rotateY(35deg)",
-				zIndex: 9,
-			};
-		else if (activeSlide + 1 === index)
-			return {
-				opacity: 1,
-				transform: "translateX(240px) translateZ(-400px) rotateY(-35deg)",
-				zIndex: 9,
-			};
-		else if (activeSlide - 2 === index)
-			return {
-				opacity: 1,
-				transform: "translateX(-480px) translateZ(-500px) rotateY(35deg)",
-				zIndex: 8,
-			};
-		else if (activeSlide + 2 === index)
-			return {
-				opacity: 1,
-				transform: "translateX(480px) translateZ(-500px) rotateY(-35deg)",
-				zIndex: 8,
-			};
-		else if (activeSlide - 3 == index)
-			return {
-				transform: "translateX(480px) translateZ(-500px) rotateY(-35deg)",
-				zIndex: 7,
-			};
-		else if (activeSlide + 3 == index)
-			return {
-				transform: "translateX(-480px) translateZ(-500px) rotateY(35deg)",
-				zIndex: 7,
-			};
-		else if (activeSlide - 4 == index)
-			return {
-				transform: "translateX(240px) translateZ(-400px) rotateY(-35deg)",
-				zIndex: 7,
-			};
-		else if (activeSlide + 4 == index)
-			return {
-				transform: "translateX(-240px) translateZ(-400px) rotateY(35deg)",
-				zIndex: 7,
-			};
+		
+			if (activeSlide === index)
+				return {
+					opacity: 1,
+					transform: "translateX(0px) translateZ(0px) rotate(0deg)",
+					zIndex: 10,
+				};
+			else if (activeSlide - 1 === index)
+				return {
+					opacity: 1,
+					transform: "translateX(-240px) translateZ(-400px) rotateY(35deg)",
+					zIndex: 9,
+				};
+			else if (activeSlide + 1 === index)
+				return {
+					opacity: 1,
+					transform: "translateX(240px) translateZ(-400px) rotateY(-35deg)",
+					zIndex: 9,
+				};
+			else if (activeSlide - 2 === index)
+				return {
+					opacity: 1,
+					transform: "translateX(-480px) translateZ(-500px) rotateY(35deg)",
+					zIndex: 8,
+				};
+			else if (activeSlide + 2 === index)
+				return {
+					opacity: 1,
+					transform: "translateX(480px) translateZ(-500px) rotateY(-35deg)",
+					zIndex: 8,
+				};
+			else if (activeSlide - 3 == index)
+				return {
+					transform: "translateX(480px) translateZ(-500px) rotateY(-35deg)",
+					zIndex: 7,
+				};
+			else if (activeSlide + 3 == index)
+				return {
+					transform: "translateX(-480px) translateZ(-500px) rotateY(35deg)",
+					zIndex: 7,
+				};
+			else if (activeSlide - 4 == index)
+				return {
+					transform: "translateX(240px) translateZ(-400px) rotateY(-35deg)",
+					zIndex: 7,
+				};
+			else if (activeSlide + 4 == index)
+				return {
+					transform: "translateX(-240px) translateZ(-400px) rotateY(35deg)",
+					zIndex: 7,
+				};
 	};
+
+	// const getStyles = (index) => {
+	// 	const isActive = activeSlide === index;
+	// 	const isPrev = activeSlide - 1 === index;
+	// 	const isNext = activeSlide + 1 === index;
+	
+	// 	if (isActive)
+	// 	  return { opacity: 1, transform: "translateX(0)" };
+	// 	if (isPrev)
+	// 	  return { opacity: 1, transform: "translateX(-240px)" };
+	// 	if (isNext)
+	// 	  return { opacity: 1, transform: "translateX(240px)" };
+	
+	// 	// Hide other elements off-screen
+	// 	return { opacity: 0, transform: "translateX(100%)" };
+	//   };
+
+
+
 
 	return (
 		<>
 			<section
-				className="flex flex-col justify-center items-center text-white w-[75%] mt-11 backdrop-blur-sm p-4 font-kode rounded-lg"
+				className="flex flex-col justify-center items-center text-white w-[75%] mt-11 backdrop-blur-sm p-4 mb-20 font-kode rounded-lg
+				bg-cyan-800/20 shadow-[0px_0px_10px_0px_#3cb7dd]"
 				id="theme"
 			>
 				{/* carousel  */}
 				<h3 className="text-center text-4xl mb-6 pb-5">Themes</h3>
 				<div className="slideC flex flex-wrap justify-center">
+					{/* {visibleData.map((item, i) => ( */}
 					{props.data.map((item, i) => (
 						<React.Fragment key={item.id}>
 							<div

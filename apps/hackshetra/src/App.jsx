@@ -7,6 +7,7 @@ import Themes from './components/Themes/Themes.jsx'
 import {ThemeData} from './constants/themeData.js'
 import './components/Themes/Themes.css'
 import { aboutData, hackshetra, tagline, what } from './constants/text.js'
+import Rules from './components/Rules/Rules.jsx'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         </div>
         <AboutUs data={aboutData} que={what}/>
         <Themes data={ThemeData} activeSlide={2}/>
+        <Rules/>
       </div>
 
 
